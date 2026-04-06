@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zakynthos 2026 — Group Trip</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --navy:    #0a1628;
+      --ocean:   #1a5f8a;
+      --sky:     #3a9bd5;
+      --cerulean:#6bbfe8;
+      --foam:    #d6eef8;
+      --white:   #f8fbff;
+      --gold:    #c8a84b;
+      --gold-light: #e8c97a;
+      --text:    #1a2740;
+      --muted:   #5a7a9a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg,
+          rgba(10,22,40,0.55) 0%,
+          rgba(26,95,138,0.35) 50%,
+          rgba(10,22,40,0.7) 100%),
+        url('https://images.unsplash.com/photo-1565350173043-97ea4f8f4c16?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      animation: slowZoom 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes slowZoom {
+      from { transform: scale(1); }
+      to   { transform: scale(1.06); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--cerulean);
+      font-size: 0.85rem;
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.6s forwards;
+    }
+
+    .hero-title span { color: var(--gold-light); }
+
+    .hero-sub {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      color: var(--foam);
+      letter-spacing: 0.15em;
+      margin-top: 0.6rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.9s forwards;
+    }
+
+    .hero-dates {
+      margin-top: 1.8rem;
+      display: inline-block;
+      border: 1px solid rgba(200,168,75,0.6);
+      color: var(--gold-light);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      padding: 0.6rem 1.8rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 1.2s forwards;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--foam);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeIn 1s 2s forwards;
+    }
+
+    .hero-scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, transparent, var(--gold));
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 0.8; }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,22,40,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(58,155,213,0.2);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      overflow-x: auto;
+    }
+
+    nav a {
+      color: var(--foam);
+      text-decoration: none;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 1.1rem 1.4rem;
+      transition: color 0.2s, border-bottom 0.2s;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      color: var(--gold-light);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 5rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      color: var(--sky);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--navy);
+      margin-bottom: 2.5rem;
+      line-height: 1.2;
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── WAVE DIVIDER ── */
+    .wave-divider {
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+
+    .wave-divider svg { display: block; }
+
+    /* ── FLIGHT / INFO CARDS ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .info-card {
+      border: 1px solid var(--foam);
+      border-radius: 4px;
+      padding: 1.8rem;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(10,22,40,0.06);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .info-card:hover {
+      box-shadow: 0 8px 30px rgba(10,22,40,0.12);
+      transform: translateY(-2px);
+    }
+
+    .info-card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .info-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .info-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .tbc-badge {
+      display: inline-block;
+      background: var(--foam);
+      color: var(--ocean);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 2px;
+      margin-top: 0.6rem;
+    }
+
+    /* ── PASSENGERS / BOARDING PASS ── */
+    .passengers-section {
+      background: linear-gradient(135deg, var(--navy) 0%, #0d2440 100%);
+      max-width: 100%;
+      padding: 5rem 1.5rem;
+    }
+
+    .passengers-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .passengers-section .section-label { color: var(--cerulean); }
+    .passengers-section .section-title { color: var(--white); }
+    .passengers-section .divider { background: linear-gradient(to right, var(--gold), transparent); }
+
+    .pass-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .pass-accordion {
+      border: 1px solid rgba(58,155,213,0.25);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .pass-accordion:hover { border-color: rgba(58,155,213,0.6); }
+
+    .pass-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.4rem;
+      background: rgba(255,255,255,0.04);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    .pass-header:hover { background: rgba(255,255,255,0.08); }
+
+    .pass-header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .pass-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sky), var(--ocean));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .pass-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      color: #fff;
+    }
+
+    .pass-chevron {
+      color: var(--cerulean);
+      font-size: 1.1rem;
+      transition: transform 0.3s;
+    }
+
+    .pass-accordion.open .pass-chevron { transform: rotate(180deg); }
+
+    .pass-body {
+      display: none;
+      padding: 0 1.4rem 1.4rem;
+      background: rgba(0,0,0,0.15);
+    }
+
+    .pass-accordion.open .pass-body { display: block; }
+
+    /* Boarding pass ticket design */
+    .boarding-pass {
+      margin-top: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 0.82rem;
+    }
+
+    .bp-top {
+      background: linear-gradient(135deg, var(--ocean) 0%, var(--navy) 100%);
+      padding: 1rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .bp-airline {
+      font-family: 'Cinzel', serif;
+      color: #fff;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .bp-route {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--foam);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+
+    .bp-route-arrow { color: var(--gold-light); }
+
+    .bp-tear {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .bp-tear::before,
+    .bp-tear::after {
+      content: '';
+      flex: 1;
+      border-top: 2px dashed #e0eaf4;
+    }
+
+    .bp-tear-circle {
+      width: 18px;
+      height: 18px;
+      background: rgba(10,22,40,0.15);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin: 0 0.5rem;
+    }
+
+    .bp-bottom {
+      padding: 1rem 1.2rem;
+    }
+
+    .bp-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .bp-field {
+      flex: 1;
+    }
+
+    .bp-field-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .bp-field-value {
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 0.85rem;
+    }
+
+    .bp-luggage {
+      margin-top: 0.8rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--foam);
+    }
+
+    .bp-luggage-title {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .bp-luggage-items {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .bp-luggage-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: var(--foam);
+      color: var(--ocean);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.7rem;
+      border-radius: 3px;
+    }
+
+    /* ── ITINERARY ── */
+    .itinerary-days {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .day-card {
+      border: 1px solid var(--foam);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .day-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.5rem;
+      background: linear-gradient(to right, var(--foam), #fff);
+      cursor: pointer;
+    }
+
+    .day-card-header:hover { background: linear-gradient(to right, #c5e4f5, var(--foam)); }
+
+    .day-number {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      color: var(--sky);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .day-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      color: var(--navy);
+    }
+
+    .day-date {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    .day-body {
+      display: none;
+      padding: 1.5rem;
+      border-top: 1px solid var(--foam);
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .day-card.open .day-body { display: block; }
+    .day-card.open .day-card-header { background: linear-gradient(to right, #b8ddf0, var(--foam)); }
+
+    .tbc-notice {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--foam);
+      border-left: 3px solid var(--sky);
+      padding: 0.8rem 1rem;
+      border-radius: 0 4px 4px 0;
+      color: var(--ocean);
+      font-size: 0.85rem;
+    }
+
+    /* ── DINING ── */
+    .dining-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .dining-card {
+      border: 1px solid var(--foam);
+      border-radius: 6px;
+      padding: 1.5rem;
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(10,22,40,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .dining-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(10,22,40,0.1);
+    }
+
+    .dining-card-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      margin-bottom: 0.8rem;
+    }
+
+    .tag-taverna  { background: #fff3d4; color: #8a6000; }
+    .tag-bar      { background: #d4eeff; color: #005a8a; }
+    .tag-beach    { background: #d4f5e9; color: #006644; }
+    .tag-activity { background: #ead4ff; color: #5a0080; }
+    .tag-supermarket { background: #f0f0f0; color: #444; }
+    .tag-farmtable { background: #d4f0d4; color: #2a6000; }
+
+    .dining-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+
+    .dining-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 0.8rem;
+    }
+
+    .dining-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      color: var(--sky);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      margin-top: 0.6rem;
+    }
+
+    .map-link:hover { color: var(--ocean); text-decoration: underline; }
+
+    /* ── CAR HIRE ── */
+    .car-hire-banner {
+      background: linear-gradient(135deg, var(--foam) 0%, #e8f5fc 100%);
+      border: 1px solid var(--cerulean);
+      border-radius: 8px;
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    .car-hire-banner h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+
+    .car-hire-banner p { color: var(--muted); font-size: 0.9rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+
+    footer strong { color: var(--cerulean); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav a { padding: 0.9rem 0.8rem; font-size: 0.65rem; }
+      .pass-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════ HERO ══════════════════════════ -->
+<header class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Group Holiday · Greece</p>
+    <h1 class="hero-title">Zakyn<span>thos</span></h1>
+    <p class="hero-sub">The Ionian Dream</p>
+    <div class="hero-dates">23 May — 30 May 2026</div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</header>
+
+<!-- ══════════════════════════ NAV ══════════════════════════ -->
+<nav>
+  <a href="#travel">Travel</a>
+  <a href="#passengers">Passengers</a>
+  <a href="#itinerary">Itinerary</a>
+  <a href="#dining">Dining</a>
+  <a href="#car">Car Hire</a>
+</nav>
+
+<!-- ══════════════════════════ TRAVEL INFO ══════════════════════════ -->
+<section id="travel">
+  <p class="section-label">Getting There</p>
+  <h2 class="section-title">Travel Details</h2>
+  <div class="divider"></div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-icon">✈️</div>
+      <h3>Outbound Flight</h3>
+      <p>Departure to Zakynthos International Airport (ZTH)</p>
+      <span class="tbc-badge">To Be Confirmed</span>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🏠</div>
+      <h3>Return Flight</h3>
+      <p>Return from Zakynthos International Airport (ZTH)</p>
+      <span class="tbc-badge">To Be Confirmed</span>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">📅</div>
+      <h3>Trip Duration</h3>
+      <p>7 nights in Zakynthos, Greece.<br />Departure: 23rd May 2026<br />Return: 30th May 2026</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">👥</div>
+      <h3>Group Size</h3>
+      <p>10 travellers across the group. A mix of checked luggage and carry-on allocations — see Passenger Boarding Passes below for individual details.</p>
+    </div>
+  </div>
+</section>
+
+<!-- wave -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#0a1628"/>
+  </svg>
+</div>
+
+<!-- ══════════════════════════ PASSENGERS ══════════════════════════ -->
+<div class="passengers-section" id="passengers">
+  <div class="passengers-inner">
+    <p class="section-label">The Group</p>
+    <h2 class="section-title">Passenger Boarding Passes</h2>
+    <div class="divider"></div>
+
+    <div class="pass-grid" id="passGrid">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- wave reverse -->
+<div class="wave-divider" style="background:#0a1628;">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60">
+    <path d="M0,30 C360,0 1080,60 1440,30 L1440,0 L0,0 Z" fill="#0a1628"/>
+  </svg>
+</div>
+
+<!-- ══════════════════════════ ITINERARY ══════════════════════════ -->
+<section id="itinerary">
+  <p class="section-label">Day by Day</p>
+  <h2 class="section-title">Holiday Itinerary</h2>
+  <div class="divider"></div>
+
+  <div class="itinerary-days" id="itineraryDays">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- ══════════════════════════ DINING ══════════════════════════ -->
+<section id="dining" style="background: linear-gradient(180deg, #f0f8fd 0%, #fff 100%); max-width:100%; padding:5rem 1.5rem;">
+  <div style="max-width:1100px; margin:0 auto;">
+    <p class="section-label">Eat & Explore</p>
+    <h2 class="section-title">Local Restaurants & Activities</h2>
+    <div class="divider"></div>
+
+    <div class="dining-grid">
+
+      <a class="dining-card" href="https://maps.app.goo.gl/VTqXQFUK8yTvRJUA8" target="_blank" rel="noopener">
+        <span class="dining-card-tag tag-taverna">Taverna</span>
+        <h3>Macaroni Restaurant</h3>
+        <p>A local favourite for traditional Greek pasta dishes. Beloved for the macaroni speciality — a Zakynthos classic.</p>
+        <span class="map-link">📍 View on Maps →</span>
+      </a>
+
+      <div class="dining-card">
+        <span class="dining-card-tag tag-taverna">Taverna</span>
+        <h3>Target Taverna</h3>
+        <div class="dining-rating">★ 4.5 <span style="color:var(--muted); font-weight:400;">(613 reviews)</span></div>
+        <p style="margin-top:0.5rem;">Hilltop restaurant in Argassi with stunning panoramic views over the bay. Free hotel pickup available — ideal for a sunset dinner.</p>
+        <a class="map-link" href="https://maps.google.com/?q=Target+Restaurant+Argassi+Zakynthos" target="_blank" rel="noopener">📍 View on Maps →</a>
+      </div>
+
+      <div class="dining-card">
+        <span class="dining-card-tag tag-taverna">Taverna · Views</span>
+        <h3>Votsalo Taverna</h3>
+        <div class="dining-rating">★ 4.7 <span style="color:var(--muted); font-weight:400;">(1,443 reviews)</span></div>
+        <p style="margin-top:0.5rem;">Breathtaking clifftop views over the bay at Keri. Perfect for a relaxed lunch. Open weekends only — grilled calamari is a must.</p>
+        <a class="map-link" href="https://maps.google.com/?q=Votsalo+Taverna+Keri+Zakynthos" target="_blank" rel="noopener">📍 View on Maps →</a>
+      </div>
+
+      <div class="dining-card">
+        <span class="dining-card-tag tag-taverna">Taverna · Seafront</span>
+        <h3>Sea Paradiso Taverna</h3>
+        <p>Waterfront taverna famous for its macaroni dish. Relaxed beachside dining with classic Greek hospitality.</p>
+        <a class="map-link" href="https://maps.google.com/?q=Porto+Paradiso+Alykes+Zakynthos" target="_blank" rel="noopener">📍 View on Maps →</a>
+      </div>
+
+      <a class="dining-card" href="https://maps.app.goo.gl/oJriJ1CuKKBFZkSv5" target="_blank" rel="noopener">
+        <span class="dining-card-tag tag-bar">Bar</span>
+        <h3>Local Bar</h3>
+        <p>A great spot for cocktails and evening drinks with the group. Perfect for a relaxed night out.</p>
+        <span class="map-link">📍 View on Maps →</span>
+      </a>
+
+      <a class="dining-card" href="https://maps.app.goo.gl/fSzXBrpaKyxYyaVo6" target="_blank" rel="noopener">
+        <span class="dining-card-tag tag-taverna">Restaurant</span>
+        <h3>Local Restaurant</h3>
+        <p>A recommended spot for the group — traditional Greek cuisine in a welcoming setting.</p>
+        <span class="map-link">📍 View on Maps →</span>
+      </a>
+
+      <a class="dining-card" href="https://maps.app.goo.gl/ASgSnJiSdGsTTnXv5" target="_blank" rel="noopener">
+        <span class="dining-card-tag tag-beach">Beach Bar</span>
+        <h3>Beach Bar (1)</h3>
+        <p>Sunbeds, cocktails and sea views. The ideal daytime spot for the group to soak up the Zakynthos sun.</p>
+        <span class="map-link">📍 View on Maps →</span>
+      </a>
+
+      <a class="dining-card" href="https://maps.app.goo.gl/oPh3WWk9A7qLbSFB7" target="_blank" rel="noopener">
+        <span class="dining-card-tag tag-beach">Beach Bar</span>
+        <h3>Beach Bar (2)</h3>
+        <p>Another excellent beach bar option — great for a lazy afternoon by the sea with drinks and snacks.</p>
+        <span class="map-link">📍 View on Maps →</span>
+      </a>
+
+      <div class="dining-card">
+        <span class="dining-card-tag tag-activity">Activity · Mini Golf</span>
+        <h3>Fantasy Mini Golf</h3>
+        <div class="dining-rating">★ 4.7 <span style="color:var(--muted); font-weight:400;">(2,361 reviews)</span></div>
+        <p style="margin-top:0.5rem;">Four themed courses including dinosaur and pirate. Bar on site — you can bring your drinks around the course. Open until 1am!</p>
+        <a class="map-link" href="https://maps.app.goo.gl/JjoEd8JXSiKh3Dm57" target="_blank" rel="noopener">📍 View on Maps →</a>
+      </div>
+
+      <a class="dining-card" href="https://maps.app.goo.gl/GYrxAxYTtrNtNXKL7" target="_blank" rel="noopener">
+        <span class="dining-card-tag tag-farmtable">Farm to Table</span>
+        <h3>Farm-to-Table Restaurant</h3>
+        <p>Fresh, locally sourced ingredients straight from the land. A unique dining experience showcasing the best of Zakynthos produce.</p>
+        <span class="map-link">📍 View on Maps →</span>
+      </a>
+
+      <a class="dining-card" href="https://maps.app.goo.gl/THUHZUud4eR99qmXA" target="_blank" rel="noopener">
+        <span class="dining-card-tag tag-supermarket">Supermarket</span>
+        <h3>Local Supermarket</h3>
+        <p>Stock up on essentials, local snacks, drinks and supplies here. Handy for picnics, beach days and self-catering moments.</p>
+        <span class="map-link">📍 View on Maps →</span>
+      </a>
+
+      <div class="dining-card">
+        <span class="dining-card-tag tag-taverna">Old Town</span>
+        <h3>Zakynthos Old Town</h3>
+        <p>The island's vibrant capital — wander the Venetian-influenced streets, visit Solomos Square, sample local pastries and browse the waterfront promenade.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ CAR HIRE ══════════════════════════ -->
+<section id="car">
+  <p class="section-label">Getting Around</p>
+  <h2 class="section-title">Car Hire</h2>
+  <div class="divider"></div>
+
+  <div class="car-hire-banner">
+    <div style="font-size:2.5rem; margin-bottom:1rem;">🚗</div>
+    <h3>Car Hire Details</h3>
+    <p>Vehicle hire information will be added here once confirmed.<br />Zakynthos is best explored by car — the island has wonderful hidden beaches and viewpoints off the main roads.</p>
+    <span class="tbc-badge" style="margin-top:1rem;">To Be Confirmed</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════ FOOTER ══════════════════════════ -->
+<footer>
+  <p>🌊 <strong>Zakynthos 2026</strong> — Group Holiday · 23–30 May</p>
+  <p style="margin-top:0.5rem; font-size:0.72rem;">Ζάκυνθος · The Flower of the Levant</p>
+</footer>
+
+<!-- ══════════════════════════ JS ══════════════════════════ -->
+<script>
+  // ── Passenger Data ──
+  const passengers = [
+    { name: "Claudia Port",         luggage: "checked", kg: 23 },
+    { name: "Bernie Hyatt",         luggage: "carryon" },
+    { name: "Ricky Port",           luggage: "checked", kg: 23 },
+    { name: "Johnathan Humphreys",  luggage: "carryon" },
+    { name: "Leah Whitehead",       luggage: "checked", kg: 23 },
+    { name: "Matthew Whitehead",    luggage: "carryon" },
+    { name: "Isabella Whitehead",   luggage: "checked", kg: 23 },
+    { name: "Sadie Whitehead",      luggage: "carryon" },
+    { name: "Mollie Port",          luggage: "checked", kg: 23 },
+    { name: "Samuel Perrins",       luggage: "carryon" },
+  ];
+
+  function initials(name) {
+    return name.split(' ').map(w => w[0]).join('').toUpperCase();
+  }
+
+  const grid = document.getElementById('passGrid');
+
+  passengers.forEach((p, i) => {
+    const hasChecked = p.luggage === 'checked';
+
+    const el = document.createElement('div');
+    el.className = 'pass-accordion';
+    el.innerHTML = `
+      <div class="pass-header" onclick="togglePass(this)">
+        <div class="pass-header-left">
+          <div class="pass-avatar">${initials(p.name)}</div>
+          <div>
+            <div class="pass-name">${p.name}</div>
+          </div>
+        </div>
+        <span class="pass-chevron">▾</span>
+      </div>
+      <div class="pass-body">
+        <div class="boarding-pass">
+          <div class="bp-top">
+            <div class="bp-airline">BOARDING PASS</div>
+            <div class="bp-route">
+              <span>MAN</span>
+              <span class="bp-route-arrow">→</span>
+              <span>ZTH</span>
+            </div>
+          </div>
+          <div class="bp-tear">
+            <div class="bp-tear-circle"></div>
+          </div>
+          <div class="bp-bottom">
+            <div class="bp-row">
+              <div class="bp-field">
+                <div class="bp-field-label">Passenger Name</div>
+                <div class="bp-field-value">${p.name.toUpperCase()}</div>
+              </div>
+              <div class="bp-field">
+                <div class="bp-field-label">Destination</div>
+                <div class="bp-field-value">ZAKYNTHOS</div>
+              </div>
+            </div>
+            <div class="bp-row">
+              <div class="bp-field">
+                <div class="bp-field-label">Date</div>
+                <div class="bp-field-value">23 MAY 2026</div>
+              </div>
+              <div class="bp-field">
+                <div class="bp-field-label">Flight</div>
+                <div class="bp-field-value">TBC</div>
+              </div>
+              <div class="bp-field">
+                <div class="bp-field-label">Seat</div>
+                <div class="bp-field-value">TBC</div>
+              </div>
+            </div>
+            <div class="bp-luggage">
+              <div class="bp-luggage-title">Luggage Allowance</div>
+              <div class="bp-luggage-items">
+                <span class="bp-luggage-tag">🎒 Carry-on</span>
+                ${hasChecked ? `<span class="bp-luggage-tag">🧳 Checked ${p.kg}kg</span>` : ''}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+
+  function togglePass(header) {
+    const acc = header.closest('.pass-accordion');
+    acc.classList.toggle('open');
+  }
+
+  // ── Itinerary Days ──
+  const days = [
+    { date: "Saturday 23 May", label: "Day 1", title: "Arrival Day" },
+    { date: "Sunday 24 May",   label: "Day 2", title: "Explore the Island" },
+    { date: "Monday 25 May",   label: "Day 3", title: "Beach & Relaxation" },
+    { date: "Tuesday 26 May",  label: "Day 4", title: "Boat Trip / Blue Caves" },
+    { date: "Wednesday 27 May",label: "Day 5", title: "Zakynthos Old Town" },
+    { date: "Thursday 28 May", label: "Day 6", title: "Free Day" },
+    { date: "Friday 29 May",   label: "Day 7", title: "Last Full Day" },
+    { date: "Saturday 30 May", label: "Day 8", title: "Departure Day" },
+  ];
+
+  const container = document.getElementById('itineraryDays');
+
+  days.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'day-card';
+    el.innerHTML = `
+      <div class="day-card-header" onclick="toggleDay(this)">
+        <div>
+          <div class="day-number">${d.label}</div>
+          <div class="day-title">${d.title}</div>
+          <div class="day-date">${d.date}</div>
+        </div>
+        <span class="pass-chevron" style="color:var(--sky);">▾</span>
+      </div>
+      <div class="day-body">
+        <div class="tbc-notice">
+          🗓️ &nbsp; Itinerary for this day is still to be confirmed. Check back soon!
+        </div>
+      </div>
+    `;
+    container.appendChild(el);
+  });
+
+  function toggleDay(header) {
+    const card = header.closest('.day-card');
+    card.classList.toggle('open');
+    const chevron = header.querySelector('.pass-chevron');
+    chevron.style.transform = card.classList.contains('open') ? 'rotate(180deg)' : '';
+  }
+</script>
+
+</body>
+</html>
