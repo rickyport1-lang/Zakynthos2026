@@ -785,7 +785,12 @@
     <p class="sec-label" style="color:var(--gold)">The Group</p>
     <h2 class="sec-title sec-title--light">Passenger <em>Boarding Passes</em></h2>
     <div class="sec-rule"><div class="sec-rule-line"></div><div class="sec-rule-dot"></div></div>
+
+    <p style="font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:1.2rem;">✈&nbsp; Outbound &nbsp;·&nbsp; EZY2385 &nbsp;·&nbsp; 23 May 2026 &nbsp;·&nbsp; LTN → ZTH &nbsp;·&nbsp; 06:30–12:05</p>
     <div class="pass-grid" id="passGrid"></div>
+
+    <p style="font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:3rem;margin-bottom:1.2rem;">✈&nbsp; Return &nbsp;·&nbsp; EZY8206 &nbsp;·&nbsp; 30 May 2026 &nbsp;·&nbsp; ZTH → LGW &nbsp;·&nbsp; 19:15–20:55</p>
+    <div class="pass-grid" id="returnGrid"></div>
   </div>
 </div>
 
@@ -1142,27 +1147,11 @@
   }
 
   /* ── Passengers ──────────────────────────────────────────── */
-  const passengers = [
-    { name: "Claudia Port",        luggage: "checked", kg: 23 },
-    { name: "Bernie Hyatt",        luggage: "carryon" },
-    { name: "Ricky Port",          luggage: "checked", kg: 23 },
-    { name: "Johnathan Humphreys", luggage: "carryon" },
-    { name: "Leah Whitehead",      luggage: "checked", kg: 23 },
-    { name: "Matthew Whitehead",   luggage: "carryon" },
-    { name: "Isabella Whitehead",  luggage: "checked", kg: 23 },
-    { name: "Sadie Whitehead",     luggage: "carryon" },
-    { name: "Mollie Port",         luggage: "checked", kg: 23 },
-    { name: "Samuel Perrins",      luggage: "carryon" },
-  ];
-
   function initials(n){ return n.split(' ').map(w=>w[0]).join('').toUpperCase(); }
 
-  const grid = document.getElementById('passGrid');
-  passengers.forEach(p => {
-    const checked = p.luggage === 'checked';
-    const el = document.createElement('div');
-    el.className = 'pass-card';
-    el.innerHTML = `
+  function buildBoardingPass(p, f) {
+    const tags = p.luggage.map(l => `<span class="bp-tag">${l}</span>`).join('');
+    return `
       <div class="pass-card-header" onclick="this.closest('.pass-card').classList.toggle('open')">
         <div class="pass-card-left">
           <div class="pass-avatar">${initials(p.name)}</div>
@@ -1175,9 +1164,9 @@
           <div class="bp-top">
             <div class="bp-carrier">BOARDING PASS</div>
             <div class="bp-route">
-              <span>LTN</span>
+              <span>${f.from}</span>
               <span class="bp-route-arrow">→</span>
-              <span>ZTH</span>
+              <span>${f.to}</span>
             </div>
           </div>
           <div class="bp-tear"><div class="bp-tear-notch"></div></div>
@@ -1188,35 +1177,86 @@
                 <div class="bp-field-value">${p.name.toUpperCase()}</div>
               </div>
               <div class="bp-field">
-                <div class="bp-field-label">Destination</div>
-                <div class="bp-field-value">ZAKYNTHOS</div>
+                <div class="bp-field-label">Flight</div>
+                <div class="bp-field-value">${f.number}</div>
               </div>
             </div>
             <div class="bp-row">
               <div class="bp-field">
                 <div class="bp-field-label">Date</div>
-                <div class="bp-field-value">23 MAY 2026</div>
+                <div class="bp-field-value">${f.date}</div>
               </div>
               <div class="bp-field">
                 <div class="bp-field-label">Departs</div>
-                <div class="bp-field-value">06:30</div>
+                <div class="bp-field-value">${f.departs}</div>
+              </div>
+              <div class="bp-field">
+                <div class="bp-field-label">Seat</div>
+                <div class="bp-field-value">${p.seat}</div>
+              </div>
+            </div>
+            <div class="bp-row">
+              <div class="bp-field">
+                <div class="bp-field-label">Booking Ref</div>
+                <div class="bp-field-value">KBB16M1</div>
               </div>
               <div class="bp-field">
                 <div class="bp-field-label">From</div>
-                <div class="bp-field-value">LUTON</div>
+                <div class="bp-field-value">${f.fromCity}</div>
               </div>
             </div>
             <div class="bp-luggage">
               <div class="bp-luggage-label">Luggage Allowance</div>
-              <div class="bp-luggage-items">
-                <span class="bp-tag">🎒 Carry-on</span>
-                ${checked ? `<span class="bp-tag">🧳 Checked ${p.kg}kg</span>` : ''}
-              </div>
+              <div class="bp-luggage-items">${tags}</div>
             </div>
           </div>
         </div>
       </div>`;
+  }
+
+  const outboundFlight = { number:'EZY2385', date:'23 MAY 2026', departs:'06:30', from:'LTN', to:'ZTH', fromCity:'LUTON' };
+  const returnFlight   = { number:'EZY8206', date:'30 MAY 2026', departs:'19:15', from:'ZTH', to:'LGW', fromCity:'ZAKYNTHOS' };
+
+  const outboundPassengers = [
+    { name:'Ricky Port',          seat:'22C', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
+    { name:'Johnathan Humphreys', seat:'22B', luggage:['🎒 Small cabin bag'] },
+    { name:'Claudia Port',        seat:'22D', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
+    { name:'Bernie Hyatt',        seat:'22E', luggage:['🎒 Small cabin bag'] },
+    { name:'Leah Whitehead',      seat:'23D', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
+    { name:'Matthew Whitehead',   seat:'23F', luggage:['🎒 Small cabin bag'] },
+    { name:'Isabella Whitehead',  seat:'23A', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
+    { name:'Sadie Whitehead',     seat:'23E', luggage:['🎒 Small cabin bag'] },
+    { name:'Mollie Port',         seat:'23C', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
+    { name:'Samuel Perrins',      seat:'23B', luggage:['🎒 Small cabin bag'] },
+  ];
+
+  const returnPassengers = [
+    { name:'Ricky Port',          seat:'23C', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
+    { name:'Johnathan Humphreys', seat:'23B', luggage:['🎒 Small cabin bag'] },
+    { name:'Claudia Port',        seat:'23D', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
+    { name:'Bernie Hyatt',        seat:'23E', luggage:['🎒 Small cabin bag'] },
+    { name:'Leah Whitehead',      seat:'24D', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
+    { name:'Matthew Whitehead',   seat:'24F', luggage:['🎒 Small cabin bag'] },
+    { name:'Isabella Whitehead',  seat:'24A', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
+    { name:'Sadie Whitehead',     seat:'24E', luggage:['🎒 Small cabin bag'] },
+    { name:'Mollie Port',         seat:'24C', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
+    { name:'Samuel Perrins',      seat:'24B', luggage:['🎒 Small cabin bag'] },
+  ];
+
+  const grid = document.getElementById('passGrid');
+  outboundPassengers.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'pass-card';
+    el.innerHTML = buildBoardingPass(p, outboundFlight);
     grid.appendChild(el);
+  });
+
+  const returnGrid = document.getElementById('returnGrid');
+  returnPassengers.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'pass-card';
+    el.innerHTML = buildBoardingPass(p, returnFlight);
+    returnGrid.appendChild(el);
   });
 
   /* ── Activities ──────────────────────────────────────────── */
