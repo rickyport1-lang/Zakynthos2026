@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zakynthos 2026 — Group Holiday</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:        #0e1624;
+      --navy:       #16243e;
+      --navy-mid:   #1e3358;
+      --cobalt:     #1a4f9c;
+      --azure:      #2d6cc0;
+      --sky:        #4a8fd4;
+      --mist:       #b8d4ef;
+      --foam:       #e8f2fb;
+      --cream:      #f7f5f0;
+      --parchment:  #ede9e1;
+      --gold:       #c9a84c;
+      --gold-light: #e2c87a;
+      --gold-pale:  #f5e9c8;
+      --text:       #1a2035;
+      --muted:      #6b7a94;
+      --white:      #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100vh; min-height: 640px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg,
+          rgba(10,18,35,0.65) 0%,
+          rgba(22,40,75,0.35) 45%,
+          rgba(10,18,35,0.80) 100%),
+        url('https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=1600&q=80') center/cover no-repeat;
+      animation: heroZoom 18s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.07); } }
+
+    /* Decorative horizontal rules */
+    .hero::before, .hero::after {
+      content: '';
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      width: 1px; background: rgba(201,168,76,0.5);
+      z-index: 2;
+    }
+    .hero::before { top: 3rem; height: 60px; }
+    .hero::after  { bottom: 5rem; height: 60px; }
+
+    .hero-content { position: relative; z-index: 3; padding: 2rem; }
+
+    .hero-eyebrow {
+      font-family: 'Jost', sans-serif; font-weight: 400;
+      letter-spacing: 0.5em; text-transform: uppercase;
+      color: var(--gold-light); font-size: 0.72rem;
+      margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp 1s 0.3s forwards;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.5rem, 11vw, 9rem);
+      font-weight: 300; color: #fff;
+      line-height: 0.9; letter-spacing: -0.01em;
+      text-shadow: 0 4px 40px rgba(0,0,0,0.4);
+      opacity: 0; animation: fadeUp 1s 0.55s forwards;
+    }
+    .hero-title em {
+      font-style: italic; color: var(--gold-light);
+    }
+    .hero-subtitle {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      letter-spacing: 0.5em; text-transform: uppercase;
+      font-size: 0.78rem; color: rgba(255,255,255,0.75);
+      margin-top: 1.6rem;
+      opacity: 0; animation: fadeUp 1s 0.8s forwards;
+    }
+
+    .hero-rule {
+      display: flex; align-items: center; gap: 1.2rem;
+      margin: 2rem auto 0;
+      opacity: 0; animation: fadeUp 1s 1s forwards;
+    }
+    .hero-rule-line { flex: 1; height: 1px; background: rgba(201,168,76,0.4); width: 80px; }
+    .hero-dates {
+      font-family: 'Jost', sans-serif; font-weight: 400;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      font-size: 0.72rem; color: var(--gold-light);
+      white-space: nowrap;
+    }
+
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3; display: flex; flex-direction: column;
+      align-items: center; gap: 0.6rem;
+      opacity: 0; animation: fadeIn 1s 2.2s forwards;
+    }
+    .hero-scroll span {
+      font-size: 0.6rem; letter-spacing: 0.35em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+    }
+    .hero-scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse { 0%,100%{opacity:0.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.15)} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    /* ─── NAV ──────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(14,22,36,0.97);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; justify-content: center; gap: 0;
+      overflow-x: auto;
+    }
+    nav a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-family: 'Jost', sans-serif; font-weight: 500;
+      font-size: 0.68rem; letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 1.15rem 1.4rem;
+      transition: color 0.2s, border-bottom 0.2s;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+    nav a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+    /* ─── SECTION WRAPPER ALTERNATION ─────────────────────── */
+    .section-wrap {
+      padding: 6rem 1.5rem;
+    }
+    .section-wrap--cream   { background: var(--cream); }
+    .section-wrap--white   { background: var(--white); }
+    .section-wrap--parchment { background: var(--parchment); }
+    .section-wrap--ink {
+      background: var(--ink);
+    }
+    .section-wrap--navy {
+      background: linear-gradient(145deg, #0d1a30 0%, #162544 50%, #0d1a30 100%);
+    }
+    .section-wrap--cobalt {
+      background: linear-gradient(145deg, #152c5a 0%, #1e3f7a 50%, #152c5a 100%);
+    }
+
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    /* ─── SECTION HEADERS ──────────────────────────────────── */
+    .sec-label {
+      font-family: 'Jost', sans-serif; font-weight: 400;
+      letter-spacing: 0.45em; text-transform: uppercase;
+      font-size: 0.65rem; color: var(--gold);
+      margin-bottom: 0.7rem;
+    }
+    .sec-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 300; line-height: 1.1;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .sec-title em { font-style: italic; }
+    .sec-title--light { color: var(--white); }
+    .sec-rule {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+    .sec-rule-line { height: 1px; width: 60px; background: var(--gold); opacity: 0.5; }
+    .sec-rule-dot  { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); opacity: 0.8; }
+
+    /* ─── TRAVEL SECTION ───────────────────────────────────── */
+    .travel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      border: 1px solid var(--parchment);
+      background: var(--parchment);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 30px rgba(14,22,36,0.06);
+    }
+    .travel-cell {
+      background: var(--white);
+      padding: 2.2rem 2rem;
+      transition: background 0.25s;
+    }
+    .travel-cell:hover { background: #fdfcfa; }
+    .travel-cell-icon {
+      font-size: 1.6rem; margin-bottom: 1rem;
+    }
+    .travel-cell-label {
+      font-family: 'Jost', sans-serif; font-weight: 400;
+      font-size: 0.62rem; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .travel-cell-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 400;
+      color: var(--navy); margin-bottom: 0.8rem;
+    }
+    .travel-cell p {
+      font-size: 0.9rem; color: var(--muted); line-height: 1.75;
+    }
+    .flight-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--foam); border: 1px solid var(--mist);
+      border-radius: 3px; padding: 0.35rem 0.85rem;
+      font-size: 0.78rem; color: var(--cobalt); font-weight: 500;
+      margin-top: 0.4rem; margin-right: 0.4rem;
+    }
+    .flight-badge-arrow { color: var(--gold); font-size: 0.9rem; }
+
+    @media (max-width: 640px) {
+      .travel-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── PASSENGERS ───────────────────────────────────────── */
+    .pass-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 1.5rem;
+    }
+    .pass-card {
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 6px; overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .pass-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-2px); }
+    .pass-card-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.4rem;
+      background: rgba(255,255,255,0.04);
+      cursor: pointer; user-select: none;
+      transition: background 0.2s;
+    }
+    .pass-card-header:hover { background: rgba(255,255,255,0.08); }
+    .pass-card-left { display: flex; align-items: center; gap: 1rem; }
+    .pass-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--cobalt), var(--navy));
+      border: 1px solid rgba(201,168,76,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem; color: var(--gold-light);
+      flex-shrink: 0;
+    }
+    .pass-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; color: var(--white); font-weight: 400;
+    }
+    .pass-chevron {
+      color: var(--gold); font-size: 1rem;
+      transition: transform 0.3s;
+    }
+    .pass-card.open .pass-chevron { transform: rotate(180deg); }
+    .pass-body {
+      display: none;
+      padding: 0 1.4rem 1.4rem;
+      background: rgba(0,0,0,0.12);
+    }
+    .pass-card.open .pass-body { display: block; }
+
+    /* Boarding pass */
+    .bp {
+      margin-top: 1rem;
+      background: var(--white);
+      border-radius: 6px; overflow: hidden;
+      font-size: 0.82rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .bp-top {
+      background: linear-gradient(135deg, var(--navy-mid) 0%, var(--ink) 100%);
+      padding: 1rem 1.3rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .bp-carrier {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; color: var(--white);
+      letter-spacing: 0.05em;
+    }
+    .bp-route {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.78rem; letter-spacing: 0.12em; color: var(--mist);
+    }
+    .bp-route-arrow { color: var(--gold-light); }
+    .bp-tear {
+      display: flex; align-items: center; position: relative;
+    }
+    .bp-tear::before, .bp-tear::after {
+      content: ''; flex: 1; border-top: 1.5px dashed #dde8f2;
+    }
+    .bp-tear-notch {
+      width: 16px; height: 16px; background: var(--ink);
+      border-radius: 50%; flex-shrink: 0; margin: 0 0.6rem;
+    }
+    .bp-bottom { padding: 1rem 1.3rem; }
+    .bp-row { display: flex; gap: 1rem; margin-bottom: 0.7rem; }
+    .bp-field { flex: 1; }
+    .bp-field-label {
+      font-size: 0.6rem; text-transform: uppercase;
+      letter-spacing: 0.15em; color: var(--muted); margin-bottom: 0.15rem;
+    }
+    .bp-field-value { font-weight: 600; color: var(--navy); font-size: 0.82rem; }
+    .bp-luggage {
+      margin-top: 0.9rem; padding-top: 0.9rem;
+      border-top: 1px solid var(--foam);
+    }
+    .bp-luggage-label {
+      font-size: 0.6rem; text-transform: uppercase;
+      letter-spacing: 0.15em; color: var(--muted); margin-bottom: 0.5rem;
+    }
+    .bp-luggage-items { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .bp-tag {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      background: var(--gold-pale); color: var(--navy);
+      border: 1px solid rgba(201,168,76,0.3);
+      font-size: 0.72rem; font-weight: 500;
+      padding: 0.3rem 0.75rem; border-radius: 3px;
+    }
+
+    /* ─── CAR HIRE ─────────────────────────────────────────── */
+    .car-meta-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px; background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 6px; overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .car-meta-cell {
+      background: rgba(255,255,255,0.05);
+      padding: 1.1rem 1.2rem;
+    }
+    .car-meta-label {
+      font-size: 0.58rem; text-transform: uppercase;
+      letter-spacing: 0.25em; color: rgba(201,168,76,0.7);
+      margin-bottom: 0.25rem;
+    }
+    .car-meta-value { font-size: 0.85rem; color: rgba(255,255,255,0.85); }
+
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 1.5rem; margin-bottom: 2.5rem;
+    }
+    .car-accordion {
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 6px; overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .car-accordion:hover { border-color: rgba(201,168,76,0.45); transform: translateY(-2px); }
+    .car-acc-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.4rem;
+      background: rgba(255,255,255,0.04);
+      cursor: pointer; user-select: none;
+      transition: background 0.2s;
+    }
+    .car-acc-header:hover { background: rgba(255,255,255,0.08); }
+    .car-acc-left { display: flex; align-items: center; gap: 1rem; }
+    .car-acc-icon {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--cobalt), var(--ink));
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center;
+      justify-content: center; font-size: 1.1rem;
+    }
+    .car-acc-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; color: var(--white);
+    }
+    .car-acc-sub { font-size: 0.75rem; color: var(--mist); margin-top: 0.1rem; }
+    .car-acc-body {
+      display: none; padding: 0 1.4rem 1.4rem;
+      background: rgba(0,0,0,0.12);
+    }
+    .car-accordion.open .car-acc-body { display: block; }
+    .car-accordion.open .pass-chevron { transform: rotate(180deg); }
+
+    .car-detail-panel {
+      margin-top: 1rem; background: var(--white);
+      border-radius: 6px; overflow: hidden;
+    }
+    .cdp-top {
+      background: linear-gradient(135deg, var(--navy-mid), var(--ink));
+      padding: 0.9rem 1.2rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .cdp-title {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--white); font-size: 0.95rem;
+    }
+    .cdp-badge {
+      background: rgba(201,168,76,0.2); color: var(--gold-light);
+      font-size: 0.6rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 2px;
+    }
+    .cdp-body { padding: 1rem 1.2rem; }
+    .cdp-row { display: flex; gap: 1rem; margin-bottom: 0.7rem; flex-wrap: wrap; }
+    .cdp-field { flex: 1; min-width: 110px; }
+    .cdp-field-lbl {
+      font-size: 0.58rem; text-transform: uppercase;
+      letter-spacing: 0.15em; color: var(--muted); margin-bottom: 0.12rem;
+    }
+    .cdp-field-val { font-weight: 600; color: var(--navy); font-size: 0.82rem; }
+    .cdp-notes { margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--foam); display: flex; flex-direction: column; gap: 0.4rem; }
+    .cdp-note { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    .car-location-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 6px; padding: 1.6rem;
+    }
+    .car-location-box h4 {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--white); font-size: 1.1rem;
+      margin-bottom: 1.2rem; font-weight: 400;
+    }
+    .car-loc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+    }
+    .car-loc-label {
+      font-size: 0.58rem; text-transform: uppercase;
+      letter-spacing: 0.22em; color: rgba(201,168,76,0.6);
+      margin-bottom: 0.3rem;
+    }
+    .car-loc-value { font-size: 0.85rem; color: rgba(255,255,255,0.8); line-height: 1.65; }
+
+    /* ─── VILLA ────────────────────────────────────────────── */
+    .villa-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px; border: 1px solid var(--parchment);
+      background: var(--parchment); border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 30px rgba(14,22,36,0.06);
+    }
+    @media (max-width: 640px) { .villa-grid { grid-template-columns: 1fr; } }
+    .villa-cell {
+      background: var(--white);
+      padding: 2.2rem 2rem;
+    }
+    .villa-cell-label {
+      font-size: 0.6rem; text-transform: uppercase;
+      letter-spacing: 0.35em; color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .villa-cell-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; color: var(--navy); margin-bottom: 0.6rem;
+    }
+    .villa-cell p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    .villa-cell a {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.78rem; font-weight: 500; color: var(--cobalt);
+      text-decoration: none; margin-top: 0.6rem;
+      letter-spacing: 0.05em;
+    }
+    .villa-cell a:hover { color: var(--azure); text-decoration: underline; }
+
+    /* ─── ACTIVITIES ───────────────────────────────────────── */
+    .days-list { display: grid; gap: 1.2rem; max-width: 680px; }
+    .day-card { border: 1px solid var(--parchment); border-radius: 6px; overflow: hidden; }
+    .day-card-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 1.3rem 1.6rem;
+      background: var(--white); cursor: pointer;
+      transition: background 0.2s;
+      border-left: 3px solid var(--gold);
+    }
+    .day-card-header:hover { background: #fdfcfa; }
+    .day-num {
+      font-size: 0.62rem; text-transform: uppercase;
+      letter-spacing: 0.3em; color: var(--gold); margin-bottom: 0.3rem;
+    }
+    .day-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; color: var(--navy);
+    }
+    .day-date { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+    .day-chevron {
+      color: var(--gold); font-size: 1rem; flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    .day-card.open .day-chevron { transform: rotate(180deg); }
+    .day-body {
+      display: none; padding: 1.5rem 1.6rem;
+      background: var(--cream); border-top: 1px solid var(--parchment);
+    }
+    .day-card.open .day-body { display: block; }
+
+    /* Activity detail block */
+    .act-timeline { display: flex; flex-direction: column; gap: 0.9rem; }
+    .act-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .act-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0; margin-top: 0.25rem;
+    }
+    .act-item-lbl {
+      font-size: 0.6rem; text-transform: uppercase;
+      letter-spacing: 0.22em; color: var(--gold); margin-bottom: 0.2rem;
+    }
+    .act-item-val { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+
+    .boat-panel {
+      margin-top: 1.2rem; background: var(--white);
+      border: 1px solid var(--parchment); border-radius: 6px;
+      overflow: hidden;
+    }
+    .boat-panel-top {
+      background: linear-gradient(135deg, var(--navy-mid), var(--ink));
+      padding: 0.9rem 1.2rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .boat-panel-title {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--white); font-size: 0.95rem;
+    }
+    .boat-badge {
+      background: rgba(201,168,76,0.2); color: var(--gold-light);
+      font-size: 0.6rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 2px;
+    }
+    .boat-spec-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.6rem; padding: 1rem 1.2rem;
+    }
+    .boat-spec-lbl { font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.1rem; }
+    .boat-spec-val { font-weight: 600; color: var(--navy); font-size: 0.82rem; }
+    .boat-notes { padding: 0.8rem 1.2rem; border-top: 1px solid var(--foam); display: flex; flex-direction: column; gap: 0.35rem; }
+    .boat-note { display: flex; gap: 0.4rem; font-size: 0.82rem; color: var(--muted); }
+    .boat-link { padding: 0.7rem 1.2rem; border-top: 1px solid var(--foam); }
+    .boat-link a {
+      font-size: 0.75rem; color: var(--cobalt); font-weight: 600;
+      text-decoration: none; letter-spacing: 0.05em;
+    }
+    .boat-link a:hover { text-decoration: underline; }
+
+    /* ─── DINING ───────────────────────────────────────────── */
+    .dining-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .dining-card {
+      background: var(--white);
+      border: 1px solid var(--parchment);
+      border-radius: 6px; overflow: hidden;
+      display: flex; flex-direction: column;
+      text-decoration: none; color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 12px rgba(14,22,36,0.04);
+    }
+    .dining-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(14,22,36,0.1);
+    }
+    .dining-card-accent {
+      height: 3px;
+    }
+    .accent-taverna  { background: linear-gradient(to right, var(--cobalt), var(--sky)); }
+    .accent-bar      { background: linear-gradient(to right, #3a6b4a, #5a9b6a); }
+    .accent-beach    { background: linear-gradient(to right, var(--sky), var(--mist)); }
+    .accent-activity { background: linear-gradient(to right, var(--gold), var(--gold-light)); }
+    .accent-market   { background: linear-gradient(to right, #7a5a3a, #b08050); }
+    .accent-farm     { background: linear-gradient(to right, #4a7a4a, #7ab47a); }
+    .accent-town     { background: linear-gradient(to right, var(--cobalt), var(--gold)); }
+
+    .dining-card-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+    .dining-tag {
+      display: inline-block; font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.7rem;
+    }
+    .dining-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .dining-card-desc {
+      font-size: 0.85rem; color: var(--muted);
+      line-height: 1.7; flex: 1;
+    }
+    .dining-rating {
+      display: flex; align-items: center; gap: 0.3rem;
+      font-size: 0.78rem; color: var(--gold); font-weight: 600;
+      margin-top: 0.7rem;
+    }
+    .dining-rating span { color: var(--muted); font-weight: 400; }
+    .dining-map-link {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.72rem; color: var(--cobalt); font-weight: 500;
+      margin-top: 0.7rem; text-decoration: none; letter-spacing: 0.05em;
+    }
+    .dining-map-link:hover { text-decoration: underline; }
+
+    /* ─── SECTION DIVIDERS ─────────────────────────────────── */
+    .divide-down-ink {
+      display: block; line-height: 0;
+    }
+    .divide-down-ink svg { display: block; }
+
+    /* ─── FOOTER ───────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(201,168,76,0.15);
+      text-align: center; padding: 4rem 1.5rem 3rem;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; color: var(--white);
+      font-weight: 300; letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .footer-logo em { font-style: italic; color: var(--gold-light); }
+    .footer-sub {
+      font-size: 0.65rem; letter-spacing: 0.4em;
+      text-transform: uppercase; color: rgba(255,255,255,0.25);
+      margin-bottom: 2rem;
+    }
+    .footer-rule {
+      width: 60px; height: 1px;
+      background: rgba(201,168,76,0.3);
+      margin: 0 auto 2rem;
+    }
+    .footer-text {
+      font-size: 0.78rem; color: rgba(255,255,255,0.2);
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 600px) {
+      nav a { padding: 1rem 0.75rem; font-size: 0.62rem; }
+      .pass-grid, .cars-grid { grid-template-columns: 1fr; }
+      .dining-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HERO ══════════════════════════════════════════════════ -->
+<header class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Claudia Port's</p>
+    <h1 class="hero-title">Zakyn<em>thos</em></h1>
+    <p class="hero-subtitle">Family Holiday &nbsp;·&nbsp; Greece</p>
+    <div class="hero-rule">
+      <div class="hero-rule-line"></div>
+      <div class="hero-dates">23 May — 30 May 2026</div>
+      <div class="hero-rule-line"></div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</header>
+
+<!-- ══ NAV ═══════════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#travel">Travel</a>
+    <a href="#passengers">Passengers</a>
+    <a href="#car">Car Hire</a>
+    <a href="#villa">Villa</a>
+    <a href="#activities">Activities</a>
+    <a href="#dining">Dining</a>
+  </div>
+</nav>
+
+<!-- ══ TRAVEL ════════════════════════════════════════════════ -->
+<div class="section-wrap section-wrap--cream" id="travel">
+  <div class="section-inner">
+    <p class="sec-label">Getting There</p>
+    <h2 class="sec-title">Travel <em>Details</em></h2>
+    <div class="sec-rule"><div class="sec-rule-line"></div><div class="sec-rule-dot"></div></div>
+
+    <div class="travel-grid">
+      <div class="travel-cell">
+        <div class="travel-cell-icon">✈️</div>
+        <div class="travel-cell-label">Outbound Flight</div>
+        <div class="travel-cell-title">Luton → Zakynthos</div>
+        <div>
+          <span class="flight-badge">LTN <span class="flight-badge-arrow">→</span> ZTH</span>
+          <span class="flight-badge">Departs 06:30</span>
+          <span class="flight-badge">Arrives 12:05</span>
+        </div>
+      </div>
+      <div class="travel-cell">
+        <div class="travel-cell-icon">🏠</div>
+        <div class="travel-cell-label">Return Flight</div>
+        <div class="travel-cell-title">Zakynthos → Gatwick</div>
+        <div>
+          <span class="flight-badge">ZTH <span class="flight-badge-arrow">→</span> LGW</span>
+          <span class="flight-badge">Departs 19:15</span>
+          <span class="flight-badge">Arrives 20:55</span>
+        </div>
+      </div>
+      <div class="travel-cell">
+        <div class="travel-cell-icon">📅</div>
+        <div class="travel-cell-label">Duration</div>
+        <div class="travel-cell-title">Seven Nights</div>
+        <p>Departure 23rd May 2026<br />Return 30th May 2026</p>
+      </div>
+      <div class="travel-cell">
+        <div class="travel-cell-icon">👥</div>
+        <div class="travel-cell-label">Group</div>
+        <div class="travel-cell-title">Ten Travellers</div>
+        <p>Mix of checked luggage and carry-on — see individual boarding passes below for full allocation details.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Divider cream → ink -->
+<svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="50" style="display:block;background:var(--cream)">
+  <path d="M0,0 C480,50 960,50 1440,0 L1440,50 L0,50 Z" fill="#0e1624"/>
+</svg>
+
+<!-- ══ PASSENGERS ═════════════════════════════════════════════ -->
+<div class="section-wrap section-wrap--ink" id="passengers">
+  <div class="section-inner">
+    <p class="sec-label" style="color:var(--gold)">The Group</p>
+    <h2 class="sec-title sec-title--light">Passenger <em>Boarding Passes</em></h2>
+    <div class="sec-rule"><div class="sec-rule-line"></div><div class="sec-rule-dot"></div></div>
+    <div class="pass-grid" id="passGrid"></div>
+  </div>
+</div>
+
+<!-- Divider ink → cobalt -->
+<svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="50" style="display:block;background:#0e1624">
+  <path d="M0,50 C480,0 960,0 1440,50 L1440,0 L0,0 Z" fill="#152c5a"/>
+</svg>
+
+<!-- ══ CAR HIRE ════════════════════════════════════════════════ -->
+<div class="section-wrap section-wrap--cobalt" id="car">
+  <div class="section-inner">
+    <p class="sec-label" style="color:var(--gold)">Getting Around</p>
+    <h2 class="sec-title sec-title--light">Car <em>Hire</em></h2>
+    <div class="sec-rule"><div class="sec-rule-line"></div><div class="sec-rule-dot"></div></div>
+
+    <div class="car-meta-bar">
+      <div class="car-meta-cell">
+        <div class="car-meta-label">Provider</div>
+        <div class="car-meta-value">Dirent a Car</div>
+      </div>
+      <div class="car-meta-cell">
+        <div class="car-meta-label">Collection Point</div>
+        <div class="car-meta-value">160m from terminal, left</div>
+      </div>
+      <div class="car-meta-cell">
+        <div class="car-meta-label">Pick Up</div>
+        <div class="car-meta-value">13:00 · 23 May 2026</div>
+      </div>
+      <div class="car-meta-cell">
+        <div class="car-meta-label">Drop Off</div>
+        <div class="car-meta-value">16:30 · 30 May 2026</div>
+      </div>
+      <div class="car-meta-cell">
+        <div class="car-meta-label">Office Hours</div>
+        <div class="car-meta-value">08:00 – 21:00 daily</div>
+      </div>
+      <div class="car-meta-cell">
+        <div class="car-meta-label">Fuel Policy</div>
+        <div class="car-meta-value">Same to same</div>
+      </div>
+    </div>
+
+    <div class="cars-grid">
+      <!-- Car 1 -->
+      <div class="car-accordion" id="carAcc1">
+        <div class="car-acc-header" onclick="toggleEl('carAcc1','car-accordion')">
+          <div class="car-acc-left">
+            <div class="car-acc-icon">🚗</div>
+            <div>
+              <div class="car-acc-title">Car 1 — Hyundai i20</div>
+              <div class="car-acc-sub">Automatic · Jay (main) &amp; Matt (additional)</div>
+            </div>
+          </div>
+          <span class="pass-chevron">▾</span>
+        </div>
+        <div class="car-acc-body">
+          <div class="car-detail-panel">
+            <div class="cdp-top">
+              <div class="cdp-title">Hyundai i20 — Automatic</div>
+              <div class="cdp-badge">Standard Insurance</div>
+            </div>
+            <div class="cdp-body">
+              <div class="cdp-row">
+                <div class="cdp-field"><div class="cdp-field-lbl">Main Driver</div><div class="cdp-field-val">Jay</div></div>
+                <div class="cdp-field"><div class="cdp-field-lbl">Additional Driver</div><div class="cdp-field-val">Matt</div></div>
+              </div>
+              <div class="cdp-row">
+                <div class="cdp-field"><div class="cdp-field-lbl">Confirmation</div><div class="cdp-field-val">9LPC65</div></div>
+                <div class="cdp-field"><div class="cdp-field-lbl">Booking Ref</div><div class="cdp-field-val">D012912682</div></div>
+              </div>
+              <div class="cdp-row">
+                <div class="cdp-field"><div class="cdp-field-lbl">Pick Up</div><div class="cdp-field-val">13:00 · 23 May</div></div>
+                <div class="cdp-field"><div class="cdp-field-lbl">Drop Off</div><div class="cdp-field-val">16:30 · 30 May</div></div>
+              </div>
+              <div class="cdp-notes">
+                <div class="cdp-note">💳 Deposit of <strong>£48</strong> paid by Jay. Balance due on collection.</div>
+                <div class="cdp-note">🛡️ Standard insurance included. Option to upgrade to £0 excess on collection (~£860 excess currently).</div>
+                <div class="cdp-note">⛽ Return with same fuel level (same-to-same policy).</div>
+                <div class="cdp-note">🧳 Boot may be small — villa is only 17 minutes away.</div>
+                <div class="cdp-note">✅ Free cancellation up to 48 hours before pick-up.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car 2 -->
+      <div class="car-accordion" id="carAcc2">
+        <div class="car-acc-header" onclick="toggleEl('carAcc2','car-accordion')">
+          <div class="car-acc-left">
+            <div class="car-acc-icon">🚗</div>
+            <div>
+              <div class="car-acc-title">Car 2 — Hyundai i20</div>
+              <div class="car-acc-sub">Automatic · Mollie (main) &amp; Sam (additional)</div>
+            </div>
+          </div>
+          <span class="pass-chevron">▾</span>
+        </div>
+        <div class="car-acc-body">
+          <div class="car-detail-panel">
+            <div class="cdp-top">
+              <div class="cdp-title">Hyundai i20 — Automatic</div>
+              <div class="cdp-badge">Standard Insurance</div>
+            </div>
+            <div class="cdp-body">
+              <div class="cdp-row">
+                <div class="cdp-field"><div class="cdp-field-lbl">Main Driver</div><div class="cdp-field-val">Mollie</div></div>
+                <div class="cdp-field"><div class="cdp-field-lbl">Additional Driver</div><div class="cdp-field-val">Sam</div></div>
+              </div>
+              <div class="cdp-row">
+                <div class="cdp-field"><div class="cdp-field-lbl">Confirmation</div><div class="cdp-field-val">9MYFAA</div></div>
+                <div class="cdp-field"><div class="cdp-field-lbl">Booking Ref</div><div class="cdp-field-val">D012912727</div></div>
+              </div>
+              <div class="cdp-row">
+                <div class="cdp-field"><div class="cdp-field-lbl">Pick Up</div><div class="cdp-field-val">13:00 · 23 May</div></div>
+                <div class="cdp-field"><div class="cdp-field-lbl">Drop Off</div><div class="cdp-field-val">16:30 · 30 May</div></div>
+              </div>
+              <div class="cdp-notes">
+                <div class="cdp-note">💳 Deposit of <strong>£48</strong> paid by Mollie. Balance due on collection.</div>
+                <div class="cdp-note">🛡️ Standard insurance included. Option to upgrade to £0 excess on collection (~£860 excess currently).</div>
+                <div class="cdp-note">⛽ Return with same fuel level (same-to-same policy).</div>
+                <div class="cdp-note">🧳 Boot may be small — villa is only 17 minutes away.</div>
+                <div class="cdp-note">✅ Free cancellation up to 48 hours before pick-up.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="car-location-box">
+      <h4>📍 Collection &amp; Drop-off</h4>
+      <div class="car-loc-grid">
+        <div>
+          <div class="car-loc-label">Pick-up</div>
+          <div class="car-loc-value">Office located 160m outside the airport terminal, on the left. Both cars collected from the same location.</div>
+        </div>
+        <div>
+          <div class="car-loc-label">Drop-off</div>
+          <div class="car-loc-value">Please clarify drop-off instructions with the supplier upon pick-up.</div>
+        </div>
+        <div>
+          <div class="car-loc-label">Office Address</div>
+          <div class="car-loc-value">Dirent a Car — Zakynthos Airport<br/>Main Street, Zakinthos 291 00</div>
+        </div>
+        <div>
+          <div class="car-loc-label">Office Hours</div>
+          <div class="car-loc-value">Open daily: 08:00 – 21:00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Divider cobalt → parchment -->
+<svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="50" style="display:block;background:#152c5a">
+  <path d="M0,0 C480,50 960,50 1440,0 L1440,50 L0,50 Z" fill="#ede9e1"/>
+</svg>
+
+<!-- ══ VILLA ═══════════════════════════════════════════════════ -->
+<div class="section-wrap section-wrap--parchment" id="villa">
+  <div class="section-inner">
+    <p class="sec-label">Accommodation</p>
+    <h2 class="sec-title">Our <em>Villa</em></h2>
+    <div class="sec-rule"><div class="sec-rule-line"></div><div class="sec-rule-dot"></div></div>
+
+    <div class="villa-grid">
+      <div class="villa-cell">
+        <div class="villa-cell-label">Property</div>
+        <div class="villa-cell-title">Ioli Villa</div>
+        <p>Akrotiri, Zakynthos, 29100, Greece</p>
+        <a href="https://iolivilla.gr/" target="_blank" rel="noopener">🔗 iolivilla.gr →</a>
+      </div>
+      <div class="villa-cell">
+        <div class="villa-cell-label">Stay Dates</div>
+        <div class="villa-cell-title">23 — 30 May 2026</div>
+        <p>Seven nights in Zakynthos</p>
+      </div>
+      <div class="villa-cell">
+        <div class="villa-cell-label">Check-in / Check-out</div>
+        <div class="villa-cell-title">16:00 &nbsp;/&nbsp; 11:00</div>
+        <p>Check-in from 4pm on arrival day.<br/>Check-out by 11am on departure day.</p>
+      </div>
+      <div class="villa-cell">
+        <div class="villa-cell-label">Capacity</div>
+        <div class="villa-cell-title">Sleeps 10 Guests</div>
+        <p>Entire villa exclusively for the group for the full duration of the holiday.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Divider parchment → cream -->
+<svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="50" style="display:block;background:#ede9e1">
+  <path d="M0,50 C480,0 960,0 1440,50 L1440,0 L0,0 Z" fill="#f7f5f0"/>
+</svg>
+
+<!-- ══ ACTIVITIES ══════════════════════════════════════════════ -->
+<div class="section-wrap section-wrap--cream" id="activities">
+  <div class="section-inner">
+    <p class="sec-label">What's On</p>
+    <h2 class="sec-title">Activities &amp; <em>Itinerary</em></h2>
+    <div class="sec-rule"><div class="sec-rule-line"></div><div class="sec-rule-dot"></div></div>
+    <div class="days-list" id="daysList"></div>
+  </div>
+</div>
+
+<!-- Divider cream → white -->
+<svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="50" style="display:block;background:#f7f5f0">
+  <path d="M0,0 C480,50 960,50 1440,0 L1440,50 L0,50 Z" fill="#ffffff"/>
+</svg>
+
+<!-- ══ DINING ═══════════════════════════════════════════════════ -->
+<div class="section-wrap section-wrap--white" id="dining">
+  <div class="section-inner">
+    <p class="sec-label">Eat &amp; Explore</p>
+    <h2 class="sec-title">Restaurants &amp; <em>Local Finds</em></h2>
+    <div class="sec-rule"><div class="sec-rule-line"></div><div class="sec-rule-dot"></div></div>
+
+    <div class="dining-grid">
+
+      <a class="dining-card" href="https://maps.app.goo.gl/VTqXQFUK8yTvRJUA8" target="_blank" rel="noopener">
+        <div class="dining-card-accent accent-taverna"></div>
+        <div class="dining-card-body">
+          <div class="dining-tag">Taverna</div>
+          <div class="dining-card-title">Macaroni Restaurant</div>
+          <p class="dining-card-desc">A local favourite for traditional Greek pasta dishes. Beloved for the macaroni speciality — a true Zakynthos classic.</p>
+          <span class="dining-map-link">📍 View on Maps →</span>
+        </div>
+      </a>
+
+      <div class="dining-card">
+        <div class="dining-card-accent accent-taverna"></div>
+        <div class="dining-card-body">
+          <div class="dining-tag">Taverna · Hilltop Views</div>
+          <div class="dining-card-title">Target Taverna</div>
+          <div class="dining-rating">★ 4.5 <span>(613 reviews)</span></div>
+          <p class="dining-card-desc" style="margin-top:0.5rem">Hilltop restaurant in Argassi with stunning panoramic views over the bay. Free hotel pick-up available — ideal for a sunset dinner.</p>
+          <a class="dining-map-link" href="https://maps.google.com/?q=Target+Restaurant+Argassi+Zakynthos" target="_blank" rel="noopener">📍 View on Maps →</a>
+        </div>
+      </div>
+
+      <div class="dining-card">
+        <div class="dining-card-accent accent-taverna"></div>
+        <div class="dining-card-body">
+          <div class="dining-tag">Taverna · Clifftop</div>
+          <div class="dining-card-title">Votsalo Taverna</div>
+          <div class="dining-rating">★ 4.7 <span>(1,443 reviews)</span></div>
+          <p class="dining-card-desc" style="margin-top:0.5rem">Breathtaking clifftop views over Keri Bay. Perfect for relaxed lunch. Open weekends only — grilled calamari is a must.</p>
+          <a class="dining-map-link" href="https://maps.google.com/?q=Votsalo+Taverna+Keri+Zakynthos" target="_blank" rel="noopener">📍 View on Maps →</a>
+        </div>
+      </div>
+
+      <div class="dining-card">
+        <div class="dining-card-accent accent-taverna"></div>
+        <div class="dining-card-body">
+          <div class="dining-tag">Taverna · Seafront</div>
+          <div class="dining-card-title">Sea Paradiso Taverna</div>
+          <p class="dining-card-desc">Waterfront taverna famous for its macaroni dish. Relaxed beachside dining with classic Greek hospitality.</p>
+          <a class="dining-map-link" href="https://maps.google.com/?q=Porto+Paradiso+Alykes+Zakynthos" target="_blank" rel="noopener">📍 View on Maps →</a>
+        </div>
+      </div>
+
+      <a class="dining-card" href="https://maps.app.goo.gl/oJriJ1CuKKBFZkSv5" target="_blank" rel="noopener">
+        <div class="dining-card-accent accent-bar"></div>
+        <div class="dining-card-body">
+          <div class="dining-tag">Bar</div>
+          <div class="dining-card-title">Local Bar</div>
+          <p class="dining-card-desc">A great spot for cocktails and evening drinks with the group. Perfect for a relaxed night out.</p>
+          <span class="dining-map-link">📍 View on Maps →</span>
+        </div>
+      </a>
+
+      <a class="dining-card" href="https://maps.app.goo.gl/fSzXBrpaKyxYyaVo6" target="_blank" rel="noopener">
+        <div class="dining-card-accent accent-taverna"></div>
+        <div class="dining-card-body">
+          <div class="dining-tag">Restaurant</div>
+          <div class="dining-card-title">Local Restaurant</div>
+          <p class="dining-card-desc">A recommended spot for the group — traditional Greek cuisine in a welcoming setting.</p>
+          <span class="dining-map-link">📍 View on Maps →</span>
+        </div>
+      </a>
+
+      <a class="dining-card" href="https://maps.app.goo.gl/ASgSnJiSdGsTTnXv5" target="_blank" rel="noopener">
+        <div class="dining-card-accent accent-beach"></div>
+        <div class="dining-card-body">
+          <div class="dining-tag">Beach Bar</div>
+          <div class="dining-card-title">Beach Bar (1)</div>
+          <p class="dining-card-desc">Sunbeds, cocktails and sea views. The ideal daytime spot for the group to soak up the Zakynthos sun.</p>
+          <span class="dining-map-link">📍 View on Maps →</span>
+        </div>
+      </a>
+
+      <a class="dining-card" href="https://maps.app.goo.gl/oPh3WWk9A7qLbSFB7" target="_blank" rel="noopener">
+        <div class="dining-card-accent accent-beach"></div>
+        <div class="dining-card-body">
+          <div class="dining-tag">Beach Bar</div>
+          <div class="dining-card-title">Beach Bar (2)</div>
+          <p class="dining-card-desc">Another excellent beach bar option — great for a lazy afternoon by the sea with drinks and snacks.</p>
+          <span class="dining-map-link">📍 View on Maps →</span>
+        </div>
+      </a>
+
+      <div class="dining-card">
+        <div class="dining-card-accent accent-activity"></div>
+        <div class="dining-card-body">
+          <div class="dining-tag">Activity · Mini Golf</div>
+          <div class="dining-card-title">Fantasy Mini Golf</div>
+          <div class="dining-rating">★ 4.7 <span>(2,361 reviews)</span></div>
+          <p class="dining-card-desc" style="margin-top:0.5rem">Four themed courses including dinosaur and pirate. Bar on site — bring drinks around the course. Open until 1am!</p>
+          <a class="dining-map-link" href="https://maps.app.goo.gl/JjoEd8JXSiKh3Dm57" target="_blank" rel="noopener">📍 View on Maps →</a>
+        </div>
+      </div>
+
+      <a class="dining-card" href="https://maps.app.goo.gl/GYrxAxYTtrNtNXKL7" target="_blank" rel="noopener">
+        <div class="dining-card-accent accent-farm"></div>
+        <div class="dining-card-body">
+          <div class="dining-tag">Farm to Table</div>
+          <div class="dining-card-title">Farm-to-Table Restaurant</div>
+          <p class="dining-card-desc">Fresh, locally sourced ingredients straight from the land. A unique experience showcasing the best of Zakynthos produce.</p>
+          <span class="dining-map-link">📍 View on Maps →</span>
+        </div>
+      </a>
+
+      <a class="dining-card" href="https://maps.app.goo.gl/THUHZUud4eR99qmXA" target="_blank" rel="noopener">
+        <div class="dining-card-accent accent-market"></div>
+        <div class="dining-card-body">
+          <div class="dining-tag">Supermarket</div>
+          <div class="dining-card-title">Local Supermarket</div>
+          <p class="dining-card-desc">Stock up on essentials, local snacks, drinks and supplies. Handy for picnics, beach days and self-catering moments.</p>
+          <span class="dining-map-link">📍 View on Maps →</span>
+        </div>
+      </a>
+
+      <div class="dining-card">
+        <div class="dining-card-accent accent-town"></div>
+        <div class="dining-card-body">
+          <div class="dining-tag">Old Town</div>
+          <div class="dining-card-title">Zakynthos Old Town</div>
+          <p class="dining-card-desc">The island's vibrant capital — Venetian-influenced streets, Solomos Square, local pastries and the waterfront promenade.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-logo">Zakyn<em>thos</em> 2026</div>
+  <div class="footer-sub">Group Holiday &nbsp;·&nbsp; 23 – 30 May</div>
+  <div class="footer-rule"></div>
+  <div class="footer-text">Ζάκυνθος &nbsp;·&nbsp; The Flower of the Levant</div>
+</footer>
+
+<script>
+  /* ── Passengers ──────────────────────────────────────────── */
+  const passengers = [
+    { name: "Claudia Port",        luggage: "checked", kg: 23 },
+    { name: "Bernie Hyatt",        luggage: "carryon" },
+    { name: "Ricky Port",          luggage: "checked", kg: 23 },
+    { name: "Johnathan Humphreys", luggage: "carryon" },
+    { name: "Leah Whitehead",      luggage: "checked", kg: 23 },
+    { name: "Matthew Whitehead",   luggage: "carryon" },
+    { name: "Isabella Whitehead",  luggage: "checked", kg: 23 },
+    { name: "Sadie Whitehead",     luggage: "carryon" },
+    { name: "Mollie Port",         luggage: "checked", kg: 23 },
+    { name: "Samuel Perrins",      luggage: "carryon" },
+  ];
+
+  function initials(n){ return n.split(' ').map(w=>w[0]).join('').toUpperCase(); }
+
+  const grid = document.getElementById('passGrid');
+  passengers.forEach(p => {
+    const checked = p.luggage === 'checked';
+    const el = document.createElement('div');
+    el.className = 'pass-card';
+    el.innerHTML = `
+      <div class="pass-card-header" onclick="this.closest('.pass-card').classList.toggle('open')">
+        <div class="pass-card-left">
+          <div class="pass-avatar">${initials(p.name)}</div>
+          <div class="pass-name">${p.name}</div>
+        </div>
+        <span class="pass-chevron">▾</span>
+      </div>
+      <div class="pass-body">
+        <div class="bp">
+          <div class="bp-top">
+            <div class="bp-carrier">BOARDING PASS</div>
+            <div class="bp-route">
+              <span>LTN</span>
+              <span class="bp-route-arrow">→</span>
+              <span>ZTH</span>
+            </div>
+          </div>
+          <div class="bp-tear"><div class="bp-tear-notch"></div></div>
+          <div class="bp-bottom">
+            <div class="bp-row">
+              <div class="bp-field">
+                <div class="bp-field-label">Passenger Name</div>
+                <div class="bp-field-value">${p.name.toUpperCase()}</div>
+              </div>
+              <div class="bp-field">
+                <div class="bp-field-label">Destination</div>
+                <div class="bp-field-value">ZAKYNTHOS</div>
+              </div>
+            </div>
+            <div class="bp-row">
+              <div class="bp-field">
+                <div class="bp-field-label">Date</div>
+                <div class="bp-field-value">23 MAY 2026</div>
+              </div>
+              <div class="bp-field">
+                <div class="bp-field-label">Departs</div>
+                <div class="bp-field-value">06:30</div>
+              </div>
+              <div class="bp-field">
+                <div class="bp-field-label">From</div>
+                <div class="bp-field-value">LUTON</div>
+              </div>
+            </div>
+            <div class="bp-luggage">
+              <div class="bp-luggage-label">Luggage Allowance</div>
+              <div class="bp-luggage-items">
+                <span class="bp-tag">🎒 Carry-on</span>
+                ${checked ? `<span class="bp-tag">🧳 Checked ${p.kg}kg</span>` : ''}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    grid.appendChild(el);
+  });
+
+  /* ── Activities ──────────────────────────────────────────── */
+  const days = [
+    {
+      label: "Day 4",
+      title: "Boat Trip 🚤",
+      date: "Tuesday 26 May 2026",
+      content: `
+        <div class="act-timeline">
+          <div class="act-item">
+            <div class="act-dot"></div>
+            <div>
+              <div class="act-item-lbl">Pick Up</div>
+              <div class="act-item-val">9:30am — 2 × Minibus transfer</div>
+            </div>
+          </div>
+          <div class="act-item">
+            <div class="act-dot"></div>
+            <div>
+              <div class="act-item-lbl">Departure</div>
+              <div class="act-item-val">10:00am · 4-hour trip</div>
+            </div>
+          </div>
+        </div>
+        <div class="boat-panel">
+          <div class="boat-panel-top">
+            <div class="boat-panel-title">Speranza Boat</div>
+            <div class="boat-badge">10 Persons</div>
+          </div>
+          <div class="boat-spec-grid">
+            <div><div class="boat-spec-lbl">Vessel</div><div class="boat-spec-val">Jeanneau Cap Camarat 925</div></div>
+            <div><div class="boat-spec-lbl">Engines</div><div class="boat-spec-val">Twin 250hp</div></div>
+            <div><div class="boat-spec-lbl">Skipper</div><div class="boat-spec-val">✅ Included</div></div>
+            <div><div class="boat-spec-lbl">Fuel</div><div class="boat-spec-val">✅ Included</div></div>
+          </div>
+          <div class="boat-notes">
+            <div class="boat-note">🤿 <span>Snorkel &amp; towels included — bring extras if needed</span></div>
+            <div class="boat-note">🥂 <span>Light refreshments provided — <strong>bring your own drinks!</strong></span></div>
+          </div>
+          <div class="boat-link">
+            <a href="https://www.zakynthosboatrentals.gr/our-boats/speranza-boat/" target="_blank" rel="noopener">🔗 View Boat Details →</a>
+          </div>
+        </div>`
+    }
+  ];
+
+  const daysList = document.getElementById('daysList');
+  days.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'day-card';
+    el.innerHTML = `
+      <div class="day-card-header" onclick="this.closest('.day-card').classList.toggle('open');this.querySelector('.day-chevron').style.transform=this.closest('.day-card').classList.contains('open')?'rotate(180deg)':''">
+        <div>
+          <div class="day-num">${d.label}</div>
+          <div class="day-title">${d.title}</div>
+          <div class="day-date">${d.date}</div>
+        </div>
+        <span class="day-chevron">▾</span>
+      </div>
+      <div class="day-body">${d.content}</div>`;
+    daysList.appendChild(el);
+  });
+
+  /* ── Generic toggle ──────────────────────────────────────── */
+  function toggleEl(id, cls) {
+    document.getElementById(id).classList.toggle('open');
+  }
+</script>
+</body>
+</html>
