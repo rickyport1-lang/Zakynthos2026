@@ -139,7 +139,6 @@
     .nav-inner {
       max-width: 1100px; margin: 0 auto;
       display: flex; justify-content: center; gap: 0;
-      overflow-x: auto;
     }
     nav a {
       color: rgba(255,255,255,0.55);
@@ -153,6 +152,40 @@
       white-space: nowrap;
     }
     nav a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+    /* Hamburger button — hidden on desktop */
+    .nav-toggle {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      padding: 1rem 1.2rem; margin-left: auto;
+      flex-direction: column; gap: 5px; align-items: center;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 1.5px;
+      background: rgba(255,255,255,0.7);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    @media (max-width: 700px) {
+      .nav-toggle { display: flex; }
+      .nav-inner {
+        flex-direction: column;
+        max-height: 0; overflow: hidden;
+        transition: max-height 0.35s ease;
+      }
+      .nav-inner.open { max-height: 400px; }
+      nav a {
+        padding: 0.9rem 1.4rem;
+        border-bottom: 1px solid rgba(201,168,76,0.1);
+        font-size: 0.72rem; letter-spacing: 0.25em;
+        justify-content: flex-start;
+      }
+      nav a:last-child { border-bottom: none; }
+      nav a:hover { border-bottom-color: rgba(201,168,76,0.1); color: var(--gold-light); }
+    }
 
     /* ─── SECTION WRAPPER ALTERNATION ─────────────────────── */
     .section-wrap {
@@ -693,13 +726,16 @@
 
 <!-- ══ NAV ═══════════════════════════════════════════════════ -->
 <nav>
-  <div class="nav-inner">
-    <a href="#travel">Travel</a>
-    <a href="#passengers">Passengers</a>
-    <a href="#car">Car Hire</a>
-    <a href="#villa">Villa</a>
-    <a href="#activities">Activities</a>
-    <a href="#dining">Dining</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-inner" id="navInner">
+    <a href="#travel" onclick="closeNav()">Travel</a>
+    <a href="#passengers" onclick="closeNav()">Passengers</a>
+    <a href="#car" onclick="closeNav()">Car Hire</a>
+    <a href="#villa" onclick="closeNav()">Villa</a>
+    <a href="#activities" onclick="closeNav()">Activities</a>
+    <a href="#dining" onclick="closeNav()">Dining</a>
   </div>
 </nav>
 
@@ -788,6 +824,13 @@
       </div>
     </div>
 
+    <div class="cdp-notes" style="margin-bottom:2rem; padding:1rem 1.2rem; background:rgba(255,255,255,0.05); border:1px solid rgba(201,168,76,0.15); border-radius:6px;">
+      <div class="cdp-note" style="color:rgba(255,255,255,0.65)">🛡️ Standard insurance on both cars. Option to upgrade to £0 excess on collection (~£860 excess currently).</div>
+      <div class="cdp-note" style="color:rgba(255,255,255,0.65)">⛽ Return with same fuel level (same-to-same policy).</div>
+      <div class="cdp-note" style="color:rgba(255,255,255,0.65)">🧳 Boot may be small — villa is only 17 minutes from the airport.</div>
+      <div class="cdp-note" style="color:rgba(255,255,255,0.65)">✅ Free cancellation up to 48 hours before pick-up.</div>
+    </div>
+
     <div class="cars-grid">
       <!-- Car 1 -->
       <div class="car-accordion" id="carAcc1">
@@ -816,16 +859,8 @@
                 <div class="cdp-field"><div class="cdp-field-lbl">Confirmation</div><div class="cdp-field-val">9LPC65</div></div>
                 <div class="cdp-field"><div class="cdp-field-lbl">Booking Ref</div><div class="cdp-field-val">D012912682</div></div>
               </div>
-              <div class="cdp-row">
-                <div class="cdp-field"><div class="cdp-field-lbl">Pick Up</div><div class="cdp-field-val">13:00 · 23 May</div></div>
-                <div class="cdp-field"><div class="cdp-field-lbl">Drop Off</div><div class="cdp-field-val">16:30 · 30 May</div></div>
-              </div>
               <div class="cdp-notes">
                 <div class="cdp-note">💳 Deposit of <strong>£48</strong> paid by Jay. Balance due on collection.</div>
-                <div class="cdp-note">🛡️ Standard insurance included. Option to upgrade to £0 excess on collection (~£860 excess currently).</div>
-                <div class="cdp-note">⛽ Return with same fuel level (same-to-same policy).</div>
-                <div class="cdp-note">🧳 Boot may be small — villa is only 17 minutes away.</div>
-                <div class="cdp-note">✅ Free cancellation up to 48 hours before pick-up.</div>
               </div>
             </div>
           </div>
@@ -859,16 +894,8 @@
                 <div class="cdp-field"><div class="cdp-field-lbl">Confirmation</div><div class="cdp-field-val">9MYFAA</div></div>
                 <div class="cdp-field"><div class="cdp-field-lbl">Booking Ref</div><div class="cdp-field-val">D012912727</div></div>
               </div>
-              <div class="cdp-row">
-                <div class="cdp-field"><div class="cdp-field-lbl">Pick Up</div><div class="cdp-field-val">13:00 · 23 May</div></div>
-                <div class="cdp-field"><div class="cdp-field-lbl">Drop Off</div><div class="cdp-field-val">16:30 · 30 May</div></div>
-              </div>
               <div class="cdp-notes">
                 <div class="cdp-note">💳 Deposit of <strong>£48</strong> paid by Mollie. Balance due on collection.</div>
-                <div class="cdp-note">🛡️ Standard insurance included. Option to upgrade to £0 excess on collection (~£860 excess currently).</div>
-                <div class="cdp-note">⛽ Return with same fuel level (same-to-same policy).</div>
-                <div class="cdp-note">🧳 Boot may be small — villa is only 17 minutes away.</div>
-                <div class="cdp-note">✅ Free cancellation up to 48 hours before pick-up.</div>
               </div>
             </div>
           </div>
@@ -1102,6 +1129,16 @@
 </footer>
 
 <script>
+  /* ── Nav toggle ──────────────────────────────────────────── */
+  function toggleNav() {
+    document.getElementById('navInner').classList.toggle('open');
+    document.getElementById('navToggle').classList.toggle('open');
+  }
+  function closeNav() {
+    document.getElementById('navInner').classList.remove('open');
+    document.getElementById('navToggle').classList.remove('open');
+  }
+
   /* ── Passengers ──────────────────────────────────────────── */
   const passengers = [
     { name: "Claudia Port",        luggage: "checked", kg: 23 },
