@@ -28,12 +28,13 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
     body {
       font-family: 'Jost', sans-serif;
       background: var(--cream);
       color: var(--text);
       overflow-x: hidden;
+      max-width: 100vw;
     }
 
     /* ─── HERO ─────────────────────────────────────────────── */
@@ -136,8 +137,10 @@
       background: rgba(14,22,36,0.97);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(201,168,76,0.2);
+      display: flex; align-items: center;
     }
     .nav-inner {
+      flex: 1;
       max-width: 1100px; margin: 0 auto;
       display: flex; justify-content: center; gap: 0;
     }
@@ -171,9 +174,11 @@
     .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
     @media (max-width: 700px) {
+      nav { flex-wrap: wrap; }
       .nav-toggle { display: flex; }
       .nav-inner {
         flex-direction: column;
+        flex-basis: 100%; /* drop to new line below hamburger */
         max-height: 0; overflow: hidden;
         transition: max-height 0.35s ease;
       }
@@ -892,7 +897,7 @@
 <div class="section-wrap section-wrap--ink" id="passengers">
   <div class="section-inner">
     <p class="sec-label" style="color:var(--gold)">The Group</p>
-    <h2 class="sec-title sec-title--light">Passenger <em>Boarding Information</em></h2>
+    <h2 class="sec-title sec-title--light">Passenger <em>Boarding Passes</em></h2>
     <div class="sec-rule"><div class="sec-rule-line"></div><div class="sec-rule-dot"></div></div>
     <div class="pax-list" id="paxList"></div>
   </div>
@@ -1297,7 +1302,6 @@
       + '<div class="pax-row-name">'+p.name+'</div>'
       + '<div class="pax-row-seat"><span>OUT</span>'+p.out.seat+'</div>'
       + '<div class="pax-row-seat"><span>RET</span>'+p.ret.seat+'</div>'
-      + '<div class="pax-row-bag">'+(hasBag ? '🎒🧳' : '🎒')+'</div>'
       + '<div class="pax-row-chevron">▾</div>'
     + '</div>'
     + '<div class="pax-row-body">'
