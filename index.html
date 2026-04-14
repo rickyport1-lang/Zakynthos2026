@@ -43,6 +43,7 @@
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       text-align: center; overflow: hidden;
+      padding-top: 48px; /* clear fixed nav */
     }
     .hero-bg {
       position: absolute; inset: 0;
@@ -131,7 +132,7 @@
 
     /* ─── NAV ──────────────────────────────────────────────── */
     nav {
-      position: sticky; top: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       background: rgba(14,22,36,0.97);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(201,168,76,0.2);
@@ -281,6 +282,91 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
       gap: 1.5rem;
+    }
+
+    /* ─── COMPACT PAX LIST ──────────────────────────────────── */
+    .pax-list { display: flex; flex-direction: column; gap: 0; }
+    .pax-row {
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+      overflow: hidden;
+    }
+    .pax-row:first-child { border-top: 1px solid rgba(201,168,76,0.12); }
+    .pax-row-header {
+      display: grid;
+      grid-template-columns: 2.4rem 1fr auto auto auto;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.85rem 0.5rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .pax-row-header:hover { background: rgba(255,255,255,0.04); }
+    .pax-row-avatar {
+      width: 2.4rem; height: 2.4rem; border-radius: 50%;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 0.8rem;
+      font-weight: 600; color: var(--gold-light); flex-shrink: 0;
+    }
+    .pax-row-name {
+      font-family: 'Jost', sans-serif; font-size: 0.85rem;
+      font-weight: 500; color: rgba(255,255,255,0.9);
+    }
+    .pax-row-seat {
+      font-family: 'Jost', sans-serif; font-size: 0.72rem;
+      color: var(--gold-light); font-weight: 600;
+      letter-spacing: 0.05em; white-space: nowrap;
+    }
+    .pax-row-seat span { color: rgba(255,255,255,0.3); font-weight: 400; margin-right: 0.25rem; font-size: 0.65rem; }
+    .pax-row-bag { font-size: 0.95rem; opacity: 0.7; }
+    .pax-row-chevron {
+      color: rgba(255,255,255,0.35); font-size: 0.8rem;
+      transition: transform 0.25s; flex-shrink: 0;
+    }
+    .pax-row.open .pax-row-chevron { transform: rotate(180deg); }
+    .pax-row-body { display: none; padding: 0 0.5rem 1.2rem; }
+    .pax-row.open .pax-row-body { display: block; }
+    .pax-flights {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+    }
+    .pax-bp {
+      background: var(--navy-mid, #152c5a);
+      border: 1px solid rgba(201,168,76,0.18);
+      border-radius: 5px; overflow: hidden;
+    }
+    .pax-bp-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.5rem 0.75rem;
+      background: rgba(201,168,76,0.08);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .pax-bp-label {
+      font-family: 'Jost', sans-serif; font-size: 0.6rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold-light); font-weight: 600;
+    }
+    .pax-bp-route {
+      font-family: 'Jost', sans-serif; font-size: 0.68rem;
+      color: rgba(255,255,255,0.6); letter-spacing: 0.05em;
+    }
+    .pax-bp-body { padding: 0.6rem 0.75rem; display: flex; flex-direction: column; gap: 0.35rem; }
+    .pax-bp-row { display: flex; justify-content: space-between; }
+    .pax-bp-field-label {
+      font-family: 'Jost', sans-serif; font-size: 0.58rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .pax-bp-field-value {
+      font-family: 'Jost', sans-serif; font-size: 0.72rem;
+      font-weight: 600; color: rgba(255,255,255,0.9);
+    }
+    .pax-bp-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.4rem; }
+    .pax-bp-tags .bp-tag { font-size: 0.65rem; padding: 0.2rem 0.5rem; }
+    @media (max-width: 500px) {
+      .pax-flights { grid-template-columns: 1fr; }
+      .pax-row-header { grid-template-columns: 2.2rem 1fr auto auto; }
+      .pax-row-seat:first-of-type { display: none; }
     }
     .pass-card {
       border: 1px solid rgba(201,168,76,0.2);
@@ -710,6 +796,21 @@
 <body>
 
 <!-- ══ HERO ══════════════════════════════════════════════════ -->
+<!-- ══ NAV ═══════════════════════════════════════════════════ -->
+<nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-inner" id="navInner">
+    <a href="#travel" onclick="closeNav()">Travel</a>
+    <a href="#passengers" onclick="closeNav()">Passengers</a>
+    <a href="#car" onclick="closeNav()">Car Hire</a>
+    <a href="#villa" onclick="closeNav()">Villa</a>
+    <a href="#activities" onclick="closeNav()">Activities</a>
+    <a href="#dining" onclick="closeNav()">Dining</a>
+  </div>
+</nav>
+
 <header class="hero" id="top">
   <div class="hero-bg"></div>
   <div class="hero-content">
@@ -728,22 +829,7 @@
   </div>
 </header>
 
-<!-- ══ NAV ═══════════════════════════════════════════════════ -->
-<nav>
-  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" onclick="toggleNav()">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="nav-inner" id="navInner">
-    <a href="#travel" onclick="closeNav()">Travel</a>
-    <a href="#passengers" onclick="closeNav()">Passengers</a>
-    <a href="#car" onclick="closeNav()">Car Hire</a>
-    <a href="#villa" onclick="closeNav()">Villa</a>
-    <a href="#activities" onclick="closeNav()">Activities</a>
-    <a href="#dining" onclick="closeNav()">Dining</a>
-  </div>
-</nav>
 
-<!-- ══ TRAVEL ════════════════════════════════════════════════ -->
 <div class="section-wrap section-wrap--cream" id="travel">
   <div class="section-inner">
     <p class="sec-label">Getting There</p>
@@ -808,10 +894,7 @@
     <p class="sec-label" style="color:var(--gold)">The Group</p>
     <h2 class="sec-title sec-title--light">Passenger <em>Boarding Passes</em></h2>
     <div class="sec-rule"><div class="sec-rule-line"></div><div class="sec-rule-dot"></div></div>
-    <p style="font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:1.2rem;">✈&nbsp; Outbound &nbsp;·&nbsp; EZY2385 &nbsp;·&nbsp; 23 May 2026 &nbsp;·&nbsp; LTN → ZTH &nbsp;·&nbsp; 06:30–12:05</p>
-    <div class="pass-grid" id="passGrid"></div>
-    <p style="font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:3rem;margin-bottom:1.2rem;">✈&nbsp; Return &nbsp;·&nbsp; EZY8206 &nbsp;·&nbsp; 30 May 2026 &nbsp;·&nbsp; ZTH → LGW &nbsp;·&nbsp; 19:15–20:55</p>
-    <div class="pass-grid" id="returnGrid"></div>
+    <div class="pax-list" id="paxList"></div>
   </div>
 </div>
 
@@ -1168,82 +1251,63 @@
   }
 
   /* ── Passengers ──────────────────────────────────────────── */
-  /* ── Passengers ──────────────────────────────────────────── */
   function initials(n){ return n.split(' ').map(w=>w[0]).join('').toUpperCase(); }
-
-  function buildCard(name, flight, seat, luggage) {
-    var tags = luggage.map(function(l){ return '<span class="bp-tag">'+l+'</span>'; }).join('');
-    var el = document.createElement('div');
-    el.className = 'pass-card';
-    el.innerHTML = '<div class="pass-card-header" onclick="this.closest(\'.pass-card\').classList.toggle(\'open\')">'
-      + '<div class="pass-card-left">'
-        + '<div class="pass-avatar">'+initials(name)+'</div>'
-        + '<div class="pass-name">'+name+'</div>'
-      + '</div>'
-      + '<span class="pass-chevron">▾</span>'
-    + '</div>'
-    + '<div class="pass-body">'
-      + '<div class="bp">'
-        + '<div class="bp-top">'
-          + '<div class="bp-carrier">BOARDING PASS</div>'
-          + '<div class="bp-route"><span>'+flight.from+'</span><span class="bp-route-arrow">→</span><span>'+flight.to+'</span></div>'
-        + '</div>'
-        + '<div class="bp-tear"><div class="bp-tear-notch"></div></div>'
-        + '<div class="bp-bottom">'
-          + '<div class="bp-row">'
-            + '<div class="bp-field"><div class="bp-field-label">Passenger Name</div><div class="bp-field-value">'+name.toUpperCase()+'</div></div>'
-            + '<div class="bp-field"><div class="bp-field-label">Flight</div><div class="bp-field-value">'+flight.number+'</div></div>'
-          + '</div>'
-          + '<div class="bp-row">'
-            + '<div class="bp-field"><div class="bp-field-label">Date</div><div class="bp-field-value">'+flight.date+'</div></div>'
-            + '<div class="bp-field"><div class="bp-field-label">Departs</div><div class="bp-field-value">'+flight.departs+'</div></div>'
-            + '<div class="bp-field"><div class="bp-field-label">Seat</div><div class="bp-field-value">'+seat+'</div></div>'
-          + '</div>'
-          + '<div class="bp-row">'
-            + '<div class="bp-field"><div class="bp-field-label">Booking Ref</div><div class="bp-field-value">KBB16M1</div></div>'
-            + '<div class="bp-field"><div class="bp-field-label">From</div><div class="bp-field-value">'+flight.fromCity+'</div></div>'
-          + '</div>'
-          + '<div class="bp-luggage"><div class="bp-luggage-label">Luggage Allowance</div><div class="bp-luggage-items">'+tags+'</div></div>'
-        + '</div>'
-      + '</div>'
-    + '</div>';
-    return el;
-  }
 
   var outbound = { number:'EZY2385', date:'23 MAY 2026', departs:'06:30', from:'LTN', to:'ZTH', fromCity:'LUTON' };
   var ret      = { number:'EZY8206', date:'30 MAY 2026', departs:'19:15', from:'ZTH', to:'LGW', fromCity:'ZAKYNTHOS' };
 
-  var outPax = [
-    { name:'Ricky Port',          seat:'22C', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
-    { name:'Johnathan Humphreys', seat:'22B', luggage:['🎒 Small cabin bag'] },
-    { name:'Claudia Port',        seat:'22D', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
-    { name:'Bernie Hyatt',        seat:'22E', luggage:['🎒 Small cabin bag'] },
-    { name:'Leah Whitehead',      seat:'23D', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
-    { name:'Matthew Whitehead',   seat:'23F', luggage:['🎒 Small cabin bag'] },
-    { name:'Isabella Whitehead',  seat:'23A', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
-    { name:'Sadie Whitehead',     seat:'23E', luggage:['🎒 Small cabin bag'] },
-    { name:'Mollie Port',         seat:'23C', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
-    { name:'Samuel Perrins',      seat:'23B', luggage:['🎒 Small cabin bag'] },
+  var passengers = [
+    { name:'Ricky Port',          out:{ seat:'22C', luggage:['🎒 Small cabin bag','🧳 23kg hold'] }, ret:{ seat:'23C', luggage:['🎒 Small cabin bag','🧳 23kg hold'] } },
+    { name:'Johnathan Humphreys', out:{ seat:'22B', luggage:['🎒 Small cabin bag'] },               ret:{ seat:'23B', luggage:['🎒 Small cabin bag'] } },
+    { name:'Claudia Port',        out:{ seat:'22D', luggage:['🎒 Small cabin bag','🧳 23kg hold'] }, ret:{ seat:'23D', luggage:['🎒 Small cabin bag','🧳 23kg hold'] } },
+    { name:'Bernie Hyatt',        out:{ seat:'22E', luggage:['🎒 Small cabin bag'] },               ret:{ seat:'23E', luggage:['🎒 Small cabin bag'] } },
+    { name:'Leah Whitehead',      out:{ seat:'23D', luggage:['🎒 Small cabin bag','🧳 23kg hold'] }, ret:{ seat:'24D', luggage:['🎒 Small cabin bag','🧳 23kg hold'] } },
+    { name:'Matthew Whitehead',   out:{ seat:'23F', luggage:['🎒 Small cabin bag'] },               ret:{ seat:'24F', luggage:['🎒 Small cabin bag'] } },
+    { name:'Isabella Whitehead',  out:{ seat:'23A', luggage:['🎒 Small cabin bag','🧳 23kg hold'] }, ret:{ seat:'24A', luggage:['🎒 Small cabin bag','🧳 23kg hold'] } },
+    { name:'Sadie Whitehead',     out:{ seat:'23E', luggage:['🎒 Small cabin bag'] },               ret:{ seat:'24E', luggage:['🎒 Small cabin bag'] } },
+    { name:'Mollie Port',         out:{ seat:'23C', luggage:['🎒 Small cabin bag','🧳 23kg hold'] }, ret:{ seat:'24C', luggage:['🎒 Small cabin bag','🧳 23kg hold'] } },
+    { name:'Samuel Perrins',      out:{ seat:'23B', luggage:['🎒 Small cabin bag'] },               ret:{ seat:'24B', luggage:['🎒 Small cabin bag'] } },
   ];
 
-  var retPax = [
-    { name:'Ricky Port',          seat:'23C', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
-    { name:'Johnathan Humphreys', seat:'23B', luggage:['🎒 Small cabin bag'] },
-    { name:'Claudia Port',        seat:'23D', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
-    { name:'Bernie Hyatt',        seat:'23E', luggage:['🎒 Small cabin bag'] },
-    { name:'Leah Whitehead',      seat:'24D', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
-    { name:'Matthew Whitehead',   seat:'24F', luggage:['🎒 Small cabin bag'] },
-    { name:'Isabella Whitehead',  seat:'24A', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
-    { name:'Sadie Whitehead',     seat:'24E', luggage:['🎒 Small cabin bag'] },
-    { name:'Mollie Port',         seat:'24C', luggage:['🎒 Small cabin bag','🧳 23kg hold'] },
-    { name:'Samuel Perrins',      seat:'24B', luggage:['🎒 Small cabin bag'] },
-  ];
+  function bpCard(flight, pax) {
+    var tags = pax.luggage.map(function(l){ return '<span class="bp-tag">'+l+'</span>'; }).join('');
+    return '<div class="pax-bp">'
+      + '<div class="pax-bp-head">'
+        + '<span class="pax-bp-label">'+(flight === outbound ? 'Outbound' : 'Return')+'</span>'
+        + '<span class="pax-bp-route">'+flight.from+' → '+flight.to+'</span>'
+      + '</div>'
+      + '<div class="pax-bp-body">'
+        + '<div class="pax-bp-row"><span class="pax-bp-field-label">Flight</span><span class="pax-bp-field-value">'+flight.number+'</span></div>'
+        + '<div class="pax-bp-row"><span class="pax-bp-field-label">Date</span><span class="pax-bp-field-value">'+flight.date+'</span></div>'
+        + '<div class="pax-bp-row"><span class="pax-bp-field-label">Departs</span><span class="pax-bp-field-value">'+flight.departs+'</span></div>'
+        + '<div class="pax-bp-row"><span class="pax-bp-field-label">Seat</span><span class="pax-bp-field-value">'+pax.seat+'</span></div>'
+        + '<div class="pax-bp-row"><span class="pax-bp-field-label">Ref</span><span class="pax-bp-field-value">KBB16M1</span></div>'
+        + '<div class="pax-bp-tags">'+tags+'</div>'
+      + '</div>'
+    + '</div>';
+  }
 
-  var grid = document.getElementById('passGrid');
-  outPax.forEach(function(p){ grid.appendChild(buildCard(p.name, outbound, p.seat, p.luggage)); });
-
-  var returnGrid = document.getElementById('returnGrid');
-  retPax.forEach(function(p){ returnGrid.appendChild(buildCard(p.name, ret, p.seat, p.luggage)); });
+  var paxList = document.getElementById('paxList');
+  passengers.forEach(function(p) {
+    var hasBag = p.out.luggage.length > 1;
+    var el = document.createElement('div');
+    el.className = 'pax-row';
+    el.innerHTML = '<div class="pax-row-header" onclick="this.closest(\'.pax-row\').classList.toggle(\'open\')">'
+      + '<div class="pax-row-avatar">'+initials(p.name)+'</div>'
+      + '<div class="pax-row-name">'+p.name+'</div>'
+      + '<div class="pax-row-seat"><span>OUT</span>'+p.out.seat+'</div>'
+      + '<div class="pax-row-seat"><span>RET</span>'+p.ret.seat+'</div>'
+      + '<div class="pax-row-bag">'+(hasBag ? '🎒🧳' : '🎒')+'</div>'
+      + '<div class="pax-row-chevron">▾</div>'
+    + '</div>'
+    + '<div class="pax-row-body">'
+      + '<div class="pax-flights">'
+        + bpCard(outbound, p.out)
+        + bpCard(ret, p.ret)
+      + '</div>'
+    + '</div>';
+    paxList.appendChild(el);
+  });
 
   /* ── Activities ──────────────────────────────────────────── */
   const days = [
